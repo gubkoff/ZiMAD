@@ -8,7 +8,6 @@ namespace PrototypeGame {
 	[RequireComponent(typeof(BoxCollider2D))]
 	public class Tile : MonoBehaviour {
 		private bool isSelected = false;
-		private Vector2 currentPosition;
 		private SpriteRenderer renderer;
 		private static Color selectedColor = new Color(.5f, .5f, .5f, 1.0f);
 		private static Tile previousSelectedTile;
@@ -25,12 +24,10 @@ namespace PrototypeGame {
 			previousSelectedTile = null;
 			renderer = gameObject.GetComponent<SpriteRenderer>();
 			size = gameObject.GetComponent<BoxCollider2D>().size;
-			UpdateCurrentPosition();
 		}
 
 		public void UpdatePositionByGridCoordinates() {
 			transform.position = new Vector2(GetColumnPosition(), GetRowPosition());
-			UpdateCurrentPosition();
 		}
 
 		private float GetColumnPosition() {
@@ -39,18 +36,6 @@ namespace PrototypeGame {
 
 		private float GetRowPosition() {
 			return row * size.x - (GridManager.instance.GetRowTileCount() / 2 * size.x - size.x / 2);
-		}
-
-		public void UpdateCurrentPosition() {
-			currentPosition = transform.position;
-		}
-
-		public Vector2 GetCurrentPosition() {
-			return currentPosition;
-		}
-
-		public void UpdatePosition(Vector2 newPosition) {
-			transform.position = newPosition;
 		}
 
 		private void OnMouseDown() {
